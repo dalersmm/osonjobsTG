@@ -1,4 +1,21 @@
-import os
+import urllib.request
+import json
+
+BOT_TOKEN = "8817825461:AAHlcXwNMDWYKWIWWWB7iGVlWP2MpT4ByAM"
+
+def get_channel_posts(channel):
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/getUpdates"
+    # Public kanal dan oxirgi e'lonlarni olish
+    channel_url = f"https://api.telegram.org/bot{BOT_TOKEN}/forwardMessage"
+    
+    # Kanal postlarini o'qish
+    read_url = f"https://api.telegram.org/bot{BOT_TOKEN}/getChatHistory?chat_id={channel}&limit=10"
+    
+    req = urllib.request.Request(read_url)
+    response = urllib.request.urlopen(req)
+    data = json.loads(response.read())
+    return data
+    import os
 import json
 import sqlite3
 import urllib.request
