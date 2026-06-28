@@ -10,18 +10,18 @@ DB_PATH = '/tmp/osonjobs.db'
 
 # 12 viloyat kanallari
 REGION_CHANNELS = {
-    'toshkent': ['@tashkent_jobs', '@ish_toshkent'],
-    'samarqand': ['@ish_samarqand', '@samarqand_jobs'],
-    'andijon': ['@ish_andijon', '@andijon_jobs'],
-    'namangan': ['@ish_namangan', '@namangan_jobs'],
-    'fargona': ['@ish_fargona', '@fargona_jobs'],
-    'buxoro': ['@ish_buxoro', '@buxoro_jobs'],
-    'xorazm': ['@ish_xorazm', '@xorazm_jobs'],
-    'qashqadaryo': ['@ish_qashqa', '@qashqa_jobs'],
-    'surxondaryo': ['@ish_surxon', '@surxon_jobs'],
-    'jizzax': ['@ish_jizzax', '@jizzax_jobs'],
-    'navoiy': ['@ish_navoiy', '@navoiy_jobs'],
-    'sirdaryo': ['@ish_sirdaryo', '@sirdaryo_jobs'],
+    'toshkent': ['@ishtopuz_rasmiy','@vakansiya_ishchikerak_toshkent'],
+    'samarqand': ['@kanal_nomi'],
+    'andijon': ['@kanal_nomi'],
+    'namangan': ['@kanal_nomi'],
+    'fargona': ['@kanal_nomi'],
+    'buxoro': ['@kanal_nomi'],
+    'xorazm': ['@kanal_nomi'],
+    'qashqadaryo': ['@kanal_nomi'],
+    'surxondaryo': ['@kanal_nomi'],
+    'jizzax': ['@kanal_nomi'],
+    'navoiy': ['@kanal_nomi'],
+    'sirdaryo': ['@kanal_nomi'],
 }
 
 # Viloyat nomlari (qidirish uchun)
