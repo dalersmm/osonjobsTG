@@ -1,53 +1,35 @@
-import urllib.request
-import json
-
-BOT_TOKEN = "8817825461:AAHlcXwNMDWYKWIWWWB7iGVlWP2MpT4ByAM"
-
-def get_channel_posts(channel):
-    url = f"https://api.telegram.org/bot{BOT_TOKEN}/getUpdates"
-    # Public kanal dan oxirgi e'lonlarni olish
-    channel_url = f"https://api.telegram.org/bot{BOT_TOKEN}/forwardMessage"
-    
-    # Kanal postlarini o'qish
-    read_url = f"https://api.telegram.org/bot{BOT_TOKEN}/getChatHistory?chat_id={channel}&limit=10"
-    
-    req = urllib.request.Request(read_url)
-    response = urllib.request.urlopen(req)
-    data = json.loads(response.read())
-    return data
-    import os
+import os
 import json
 import sqlite3
 import urllib.request
 import urllib.parse
+from datetime import datetime
 
-BOT_TOKEN = os.environ.get('BOT_TOKEN', '')
+BOT_TOKEN = os.environ.get('BOT_TOKEN', '8817825461:AAHlcXwNMDWYKWIWWWB7iGVlWP2MpT4ByAM')
 MINI_APP_URL = os.environ.get('MINI_APP_URL', '')
 DB_PATH = '/tmp/osonjobs.db'
 
-# 12 viloyat kanallari
 REGION_CHANNELS = {
-    'toshkent': ['@ishtopuz_rasmiy','@vakansiya_ishchikerak_toshkent'],
-    'samarqand': ['@kanal_nomi'],
-    'andijon': ['@kanal_nomi'],
-    'namangan': ['@kanal_nomi'],
-    'fargona': ['@kanal_nomi'],
-    'buxoro': ['@kanal_nomi'],
-    'xorazm': ['@kanal_nomi'],
-    'qashqadaryo': ['@kanal_nomi'],
-    'surxondaryo': ['@kanal_nomi'],
-    'jizzax': ['@kanal_nomi'],
-    'navoiy': ['@kanal_nomi'],
-    'sirdaryo': ['@kanal_nomi'],
+    'toshkent': ['@ishtopuz_rasmiy', '@vakansiya_ishchikerak_toshkent'],
+    'samarqand': [],
+    'andijon': [],
+    'namangan': [],
+    'fargona': [],
+    'buxoro': [],
+    'xorazm': [],
+    'qashqadaryo': [],
+    'surxondaryo': [],
+    'jizzax': [],
+    'navoiy': [],
+    'sirdaryo': [],
 }
 
-# Viloyat nomlari (qidirish uchun)
 REGION_NAMES = {
     'toshkent': '🏙️ Toshkent',
     'samarqand': '🏛️ Samarqand',
     'andijon': '🌿 Andijon',
     'namangan': '🏔️ Namangan',
-    'fargona': '🌸 Farg\'ona',
+    'fargona': '🌸 Fargona',
     'buxoro': '📚 Buxoro',
     'xorazm': '💧 Xorazm',
     'qashqadaryo': '⛰️ Qashqadaryo',
@@ -60,9 +42,6 @@ REGION_NAMES = {
 def init_db():
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
-    c.execute('''CREATE TABLE IF NOT EXISTS jobs
-                 (id INTEGER PRIMARY KEY, channel TEXT, message_id INTEGER,
-                  text TEXT, date TEXT, link TEXT, category TEXT, region TEXT)''')
     c.execute('''CREATE TABLE IF NOT EXISTS users
                  (user_id TEXT PRIMARY KEY, username TEXT, first_name TEXT,
                   ref_by TEXT, joined_date TEXT, region TEXT)''')
@@ -78,7 +57,7 @@ def detect_region(text):
         'samarqand': ['samarqand', 'самарканд'],
         'andijon': ['andijon', 'андижан'],
         'namangan': ['namangan', 'наманган'],
-        'fargona': ['fargona', "farg'ona", 'фергана'],
+        'fargona': ['fargona', 'farg\'ona', 'фергана'],
         'buxoro': ['buxoro', 'бухара'],
         'xorazm': ['xorazm', 'хорезм'],
         'qashqadaryo': ['qashqa', 'qashqadaryo', 'кашкадарья'],
@@ -118,23 +97,23 @@ def add_user(user_id, username, first_name, ref_by=None):
     try:
         conn = sqlite3.connect(DB_PATH)
         c = conn.cursor()
-        from datetime import datetime
         c.execute('''INSERT OR IGNORE INTO users 
                      (user_id, username, first_name, ref_by, joined_date)
                      VALUES (?, ?, ?, ?, ?)''',
-                  (str(user_id), username, first_name, ref_by,
-                   datetime.now().isoformat()))
+                  (str(user_id), username, first_name, ref_by, datetime.now().isoformat()))
         if ref_by:
             c.execute('''INSERT OR IGNORE INTO referrals (inviter_id, invited_id, date)
                          VALUES (?, ?, ?)''',
                       (ref_by, str(user_id), datetime.now().isoformat()))
             c.execute('SELECT COUNT(*) FROM referrals WHERE inviter_id=?', (ref_by,))
             count = c.fetchone()[0]
-            milestones = {3: '🎉 3 do\'st! Qidiruv ochildi!',
-                         10: '💰 10 do\'st! $1 daromad!',
-                         50: '💰 50 do\'st! $5 daromad!',
-                         100: '💰 100 do\'st! $15 daromad!',
-                         500: '💰 500 do\'st! $100 daromad!'}
+            milestones = {
+                3: '🎉 3 do\'st! Qidiruv ochildi!',
+                10: '💰 10 do\'st! $1 daromad!',
+                50: '💰 50 do\'st! $5 daromad!',
+                100: '💰 100 do\'st! $15 daromad!',
+                500: '💰 500 do\'st! $100 daromad!'
+            }
             if count in milestones:
                 send_message(ref_by, milestones[count])
         conn.commit()
@@ -142,22 +121,16 @@ def add_user(user_id, username, first_name, ref_by=None):
     except Exception as e:
         print(f"add_user error: {e}")
 
-def get_referral_stats(user_id):
+def get_channel_posts(channel, limit=10):
     try:
-        conn = sqlite3.connect(DB_PATH)
-        c = conn.cursor()
-        c.execute('SELECT COUNT(*) FROM referrals WHERE inviter_id=?', (str(user_id),))
-        friends = c.fetchone()[0]
-        conn.close()
-        earnings = 0
-        if friends >= 500: earnings = 100
-        elif friends >= 100: earnings = 15
-        elif friends >= 50: earnings = 5
-        elif friends >= 10: earnings = 1
-        return {'ok': True, 'friends': friends, 'earnings': earnings,
-                'searches_unlocked': friends >= 3}
-    except:
-        return {'ok': False, 'friends': 0, 'earnings': 0, 'searches_unlocked': False}
+        url = f'https://api.telegram.org/bot{BOT_TOKEN}/getUpdates?chat_id={channel}&limit={limit}'
+        req = urllib.request.Request(url)
+        response = urllib.request.urlopen(req, timeout=5)
+        data = json.loads(response.read())
+        return data
+    except Exception as e:
+        print(f"get_channel_posts error: {e}")
+        return None
 
 def send_message(chat_id, text, keyboard=None):
     try:
@@ -196,23 +169,20 @@ def handle_update(update):
     try:
         init_db()
 
-        # Callback query (viloyat tanlash)
         if 'callback_query' in update:
             cb = update['callback_query']
             user_id = cb['from']['id']
             data = cb.get('data', '')
-
             if data.startswith('region_'):
                 region = data.replace('region_', '')
                 save_user_region(user_id, region)
                 region_name = REGION_NAMES.get(region, region)
                 send_message(user_id,
-                    f'✅ <b>{region_name}</b> viloyati saqlandi!\n\n'
-                    f'Endi siz uchun {region_name} bo\'yicha ishlar ko\'rsatiladi. 👇',
+                    f'✅ <b>{region_name}</b> saqlandi!\n\n'
+                    f'Endi {region_name} bo\'yicha ishlar ko\'rsatiladi 👇',
                     get_mini_app_keyboard())
             return
 
-        # Oddiy xabar
         if 'message' not in update:
             return
 
@@ -222,35 +192,31 @@ def handle_update(update):
         first_name = msg['from'].get('first_name', '')
         text = msg.get('text', '')
 
-        # /start komandasi
         if text.startswith('/start'):
             parts = text.split()
             ref_by = parts[1].replace('ref_', '') if len(parts) > 1 else None
             add_user(user_id, username, first_name, ref_by)
-
             send_message(user_id,
                 f'Salom, <b>{first_name}</b>! 👋\n\n'
-                f'🏙️ Qaysi viloyatdasiz? Tanlang:',
+                f'🏙️ Qaysi viloyatdasiz?',
                 get_region_keyboard())
             return
 
-        # Viloyat nomini yozsa
         region = detect_region(text)
         if region:
             save_user_region(user_id, region)
             region_name = REGION_NAMES.get(region, region)
             send_message(user_id,
-                f'✅ <b>{region_name}</b> viloyati saqlandi!\n\n'
-                f'Endi siz uchun {region_name} bo\'yicha ishlar ko\'rsatiladi. 👇',
+                f'✅ <b>{region_name}</b> saqlandi!\n\n'
+                f'Ishlarni ko\'rish uchun tugmani bosing 👇',
                 get_mini_app_keyboard())
             return
 
-        # Boshqa xabar
         user_region = get_user_region(user_id)
         if user_region:
             region_name = REGION_NAMES.get(user_region, '')
             send_message(user_id,
-                f'🔍 {region_name} bo\'yicha ishlarni ko\'rish uchun tugmani bosing 👇',
+                f'🔍 {region_name} bo\'yicha ishlar 👇',
                 get_mini_app_keyboard())
         else:
             send_message(user_id,
