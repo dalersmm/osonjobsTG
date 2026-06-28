@@ -4,51 +4,26 @@ import sqlite3
 import urllib.request
 import urllib.parse
 from datetime import datetime
+from http.server import BaseHTTPRequestHandler
 
 BOT_TOKEN = os.environ.get('BOT_TOKEN', '8817825461:AAHlcXwNMDWYKWIWWWB7iGVlWP2MpT4ByAM')
-MINI_APP_URL = os.environ.get('MINI_APP_URL', '')
+MINI_APP_URL = 'https://osonjobs.vercel.app'
 DB_PATH = '/tmp/osonjobs.db'
 
 REGION_CHANNELS = {
-    'toshkent': [
-        '@ishtopuz_rasmiy',
-        '@vakansiya_ishchikerak_toshkent',
-        '@ishtoparuz_kanal',
-        '@ish_qidiring',
-        '@manavakansiya_uz',
-        '@vacancy_argos',
-        '@ish_keremi',
-        '@toshkent_ishlar_bormi',
-        '@Ishbor_Ishkerak_Ishlar_vakansiya',
-        '@vakansyuz',
-        '@Toshkent_Ishbor1',
-    ],
-    'samarqand': [],
-    'andijon': [],
-    'namangan': [],
-    'fargona': [],
-    'buxoro': [],
-    'xorazm': [],
-    'qashqadaryo': [],
-    'surxondaryo': [],
-    'jizzax': [],
-    'navoiy': [],
-    'sirdaryo': [],
+    'toshkent': ['@ishtopuz_rasmiy', '@vakansiya_ishchikerak_toshkent'],
+    'samarqand': [], 'andijon': [], 'namangan': [], 'fargona': [],
+    'buxoro': [], 'xorazm': [], 'qashqadaryo': [], 'surxondaryo': [],
+    'jizzax': [], 'navoiy': [], 'sirdaryo': [],
 }
 
 REGION_NAMES = {
-    'toshkent': '🏙️ Toshkent',
-    'samarqand': '🏛️ Samarqand',
-    'andijon': '🌿 Andijon',
-    'namangan': '🏔️ Namangan',
-    'fargona': '🌸 Fargona',
-    'buxoro': '📚 Buxoro',
-    'xorazm': '💧 Xorazm',
-    'qashqadaryo': '⛰️ Qashqadaryo',
-    'surxondaryo': '🌄 Surxondaryo',
-    'jizzax': '🌾 Jizzax',
-    'navoiy': '⚗️ Navoiy',
-    'sirdaryo': '🌊 Sirdaryo',
+    'toshkent': '🏙️ Toshkent', 'samarqand': '🏛️ Samarqand',
+    'andijon': '🌿 Andijon', 'namangan': '🏔️ Namangan',
+    'fargona': '🌸 Fargona', 'buxoro': '📚 Buxoro',
+    'xorazm': '💧 Xorazm', 'qashqadaryo': '⛰️ Qashqadaryo',
+    'surxondaryo': '🌄 Surxondaryo', 'jizzax': '🌾 Jizzax',
+    'navoiy': '⚗️ Navoiy', 'sirdaryo': '🌊 Sirdaryo',
 }
 
 def init_db():
@@ -64,12 +39,12 @@ def init_db():
 
 def detect_region(text):
     text = text.lower().strip()
-    region_keywords = {
+    keywords = {
         'toshkent': ['toshkent', 'ташкент'],
         'samarqand': ['samarqand', 'самарканд'],
         'andijon': ['andijon', 'андижан'],
         'namangan': ['namangan', 'наманган'],
-        'fargona': ['fargona', 'farg\'ona', 'фергана'],
+        'fargona': ['fargona', "farg'ona", 'фергана'],
         'buxoro': ['buxoro', 'бухара'],
         'xorazm': ['xorazm', 'хорезм'],
         'qashqadaryo': ['qashqa', 'qashqadaryo', 'кашкадарья'],
@@ -78,8 +53,8 @@ def detect_region(text):
         'navoiy': ['navoiy', 'навои'],
         'sirdaryo': ['sirdaryo', 'сырдарья'],
     }
-    for region, keywords in region_keywords.items():
-        for kw in keywords:
+    for region, kws in keywords.items():
+        for kw in kws:
             if kw in text:
                 return region
     return None
@@ -91,8 +66,7 @@ def save_user_region(user_id, region):
         c.execute('UPDATE users SET region=? WHERE user_id=?', (region, str(user_id)))
         conn.commit()
         conn.close()
-    except:
-        pass
+    except: pass
 
 def get_user_region(user_id):
     try:
@@ -102,14 +76,13 @@ def get_user_region(user_id):
         row = c.fetchone()
         conn.close()
         return row[0] if row and row[0] else None
-    except:
-        return None
+    except: return None
 
 def add_user(user_id, username, first_name, ref_by=None):
     try:
         conn = sqlite3.connect(DB_PATH)
         c = conn.cursor()
-        c.execute('''INSERT OR IGNORE INTO users 
+        c.execute('''INSERT OR IGNORE INTO users
                      (user_id, username, first_name, ref_by, joined_date)
                      VALUES (?, ?, ?, ?, ?)''',
                   (str(user_id), username, first_name, ref_by, datetime.now().isoformat()))
@@ -120,11 +93,11 @@ def add_user(user_id, username, first_name, ref_by=None):
             c.execute('SELECT COUNT(*) FROM referrals WHERE inviter_id=?', (ref_by,))
             count = c.fetchone()[0]
             milestones = {
-                3: '🎉 3 do\'st! Qidiruv ochildi!',
-                10: '💰 10 do\'st! $1 daromad!',
-                50: '💰 50 do\'st! $5 daromad!',
-                100: '💰 100 do\'st! $15 daromad!',
-                500: '💰 500 do\'st! $100 daromad!'
+                3: "🎉 3 do'st! Qidiruv ochildi!",
+                10: "💰 10 do'st! $1 daromad!",
+                50: "💰 50 do'st! $5 daromad!",
+                100: "💰 100 do'st! $15 daromad!",
+                500: "💰 500 do'st! $100 daromad!"
             }
             if count in milestones:
                 send_message(ref_by, milestones[count])
@@ -133,29 +106,30 @@ def add_user(user_id, username, first_name, ref_by=None):
     except Exception as e:
         print(f"add_user error: {e}")
 
-def get_channel_posts(channel, limit=10):
-    try:
-        url = f'https://api.telegram.org/bot{BOT_TOKEN}/getUpdates?chat_id={channel}&limit={limit}'
-        req = urllib.request.Request(url)
-        response = urllib.request.urlopen(req, timeout=5)
-        data = json.loads(response.read())
-        return data
-    except Exception as e:
-        print(f"get_channel_posts error: {e}")
-        return None
-
 def send_message(chat_id, text, keyboard=None):
     try:
         data = {'chat_id': chat_id, 'text': text, 'parse_mode': 'HTML'}
         if keyboard:
             data['reply_markup'] = json.dumps(keyboard)
         url = f'https://api.telegram.org/bot{BOT_TOKEN}/sendMessage'
-        req = urllib.request.Request(url,
-              data=json.dumps(data).encode(),
-              headers={'Content-Type': 'application/json'})
-        urllib.request.urlopen(req)
+        req = urllib.request.Request(
+            url,
+            data=json.dumps(data).encode(),
+            headers={'Content-Type': 'application/json'})
+        urllib.request.urlopen(req, timeout=5)
     except Exception as e:
         print(f"send_message error: {e}")
+
+def answer_callback(callback_id):
+    try:
+        data = {'callback_query_id': callback_id}
+        url = f'https://api.telegram.org/bot{BOT_TOKEN}/answerCallbackQuery'
+        req = urllib.request.Request(
+            url,
+            data=json.dumps(data).encode(),
+            headers={'Content-Type': 'application/json'})
+        urllib.request.urlopen(req, timeout=5)
+    except: pass
 
 def get_mini_app_keyboard():
     return {
@@ -185,13 +159,14 @@ def handle_update(update):
             cb = update['callback_query']
             user_id = cb['from']['id']
             data = cb.get('data', '')
+            answer_callback(cb['id'])
             if data.startswith('region_'):
                 region = data.replace('region_', '')
                 save_user_region(user_id, region)
                 region_name = REGION_NAMES.get(region, region)
                 send_message(user_id,
                     f'✅ <b>{region_name}</b> saqlandi!\n\n'
-                    f'Endi {region_name} bo\'yicha ishlar ko\'rsatiladi 👇',
+                    f'Ishlarni ko\'rish uchun tugmani bosing 👇',
                     get_mini_app_keyboard())
             return
 
@@ -219,8 +194,7 @@ def handle_update(update):
             save_user_region(user_id, region)
             region_name = REGION_NAMES.get(region, region)
             send_message(user_id,
-                f'✅ <b>{region_name}</b> saqlandi!\n\n'
-                f'Ishlarni ko\'rish uchun tugmani bosing 👇',
+                f'✅ <b>{region_name}</b> saqlandi!\n\nIshlarni ko\'rish 👇',
                 get_mini_app_keyboard())
             return
 
@@ -238,23 +212,51 @@ def handle_update(update):
     except Exception as e:
         print(f"handle_update error: {e}")
 
-class handler:
-    def __init__(self, environ, start_response):
-        self.environ = environ
-        self.start_response = start_response
+def get_referral_stats(user_id):
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        c = conn.cursor()
+        c.execute('SELECT COUNT(*) FROM referrals WHERE inviter_id=?', (str(user_id),))
+        friends = c.fetchone()[0]
+        conn.close()
+        earnings = 0
+        if friends >= 500: earnings = 100
+        elif friends >= 100: earnings = 15
+        elif friends >= 50: earnings = 5
+        elif friends >= 10: earnings = 1
+        return {'friends': friends, 'earnings': earnings}
+    except: return {'friends': 0, 'earnings': 0}
 
-    def __iter__(self):
+# ✅ TO'G'RI - BaseHTTPRequestHandler
+class handler(BaseHTTPRequestHandler):
+
+    def do_GET(self):
+        path = self.path
+        if '/api/referral' in path:
+            query = urllib.parse.parse_qs(urllib.parse.urlparse(path).query)
+            user_id = query.get('user_id', ['0'])[0]
+            stats = get_referral_stats(user_id)
+            self._respond({'ok': True, **stats})
+        else:
+            self._respond({'ok': True, 'status': 'OsonJobs bot ishlayapti! ✅'})
+
+    def do_POST(self):
         try:
-            if self.environ['REQUEST_METHOD'] == 'POST':
-                length = int(self.environ.get('CONTENT_LENGTH', 0))
-                body = self.environ['wsgi.input'].read(length)
-                update = json.loads(body)
-                handle_update(update)
-                self.start_response('200 OK', [('Content-Type', 'application/json')])
-                yield json.dumps({'ok': True}).encode()
-            else:
-                self.start_response('200 OK', [('Content-Type', 'application/json')])
-                yield json.dumps({'ok': True, 'status': 'OsonJobs bot ishlayapti!'}).encode()
+            length = int(self.headers.get('Content-Length', 0))
+            body = self.rfile.read(length)
+            update = json.loads(body)
+            handle_update(update)
         except Exception as e:
-            self.start_response('200 OK', [('Content-Type', 'application/json')])
-            yield json.dumps({'ok': False, 'error': str(e)}).encode()
+            print(f"POST error: {e}")
+        finally:
+            self._respond({'ok': True})
+
+    def _respond(self, data):
+        self.send_response(200)
+        self.send_header('Content-Type', 'application/json')
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.end_headers()
+        self.wfile.write(json.dumps(data, ensure_ascii=False).encode())
+
+    def log_message(self, format, *args):
+        pass
