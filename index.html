@@ -791,10 +791,9 @@ async function searchHH(keyword = '') {
   } catch(e) {}
 
   document.getElementById('jobsList').innerHTML = `
-    <div class="empty-state">
-      <span>😔</span>
-      <p>Hozircha vakansiyalar yo'q.<br>Bot kanallar bilan ulangach ko'rinadi.</p>
-    </div>`;
+    <div id="jobs-list">
+    <div id="loading">⏳ Yuklanmoqda...</div>
+</div>
 }
 
 function renderJobs(jobs) {
@@ -930,6 +929,34 @@ function showToast(msg) {
 
 // ========== INIT ==========
 initTelegram();
+<script>
+const tg = window.Telegram.WebApp;
+const region = tg.initDataUnsafe?.user?.language_code || 'toshkent';
+
+async function loadJobs() {
+    try {
+        const res = await fetch(`/api/jobs?region=${region}`);
+        const data = await res.json();
+        const list = document.getElementById('jobs-list');
+
+        if (!data.jobs || data.jobs.length === 0) {
+            list.innerHTML = '<p>Hozircha vakansiyalar yo\'q 😔</p>';
+            return;
+        }
+
+        list.innerHTML = data.jobs.map(job => `
+            <div class="job-card" onclick="window.open('${job.link}', '_blank')">
+                <p>${job.text}</p>
+                <span>${job.channel}</span>
+                <button>Ko'rish →</button>
+            </div>
+        `).join('');
+    } catch(e) {
+        document.getElementById('jobs-list').innerHTML = '<p>Xatolik yuz berdi 😔</p>';
+    }
+}
+
+loadJobs();
 </script>
 </body>
 </html>
