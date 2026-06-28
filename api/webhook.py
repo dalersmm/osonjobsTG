@@ -10,7 +10,19 @@ MINI_APP_URL = os.environ.get('MINI_APP_URL', '')
 DB_PATH = '/tmp/osonjobs.db'
 
 REGION_CHANNELS = {
-    'toshkent': ['@ishtopuz_rasmiy', '@vakansiya_ishchikerak_toshkent''@Toshkent_Ishbor1','@Ishbor_Ishkerak_Ishlar_vakansiya','@vakansyuz'],
+    'toshkent': [
+        '@ishtopuz_rasmiy',
+        '@vakansiya_ishchikerak_toshkent',
+        '@ishtoparuz_kanal',
+        '@ish_qidiring',
+        '@manavakansiya_uz',
+        '@vacancy_argos',
+        '@ish_keremi',
+        '@toshkent_ishlar_bormi',
+        '@Ishbor_Ishkerak_Ishlar_vakansiya',
+        '@vakansyuz',
+        '@Toshkent_Ishbor1',
+    ],
     'samarqand': [],
     'andijon': [],
     'namangan': [],
