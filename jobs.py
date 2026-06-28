@@ -1,6 +1,8 @@
 import json
 import urllib.request
 import xml.etree.ElementTree as ET
+from http.server import BaseHTTPRequestHandler
+import urllib.parse
 
 REGION_CHANNELS = {
     'toshkent': [
@@ -9,11 +11,6 @@ REGION_CHANNELS = {
         '@ishtoparuz_kanal',
         '@ish_qidiring',
         '@manavakansiya_uz',
-        '@vacancy_argos',
-        '@ish_keremi',
-        '@toshkent_ishlar_bormi',
-        '@vakansyuz',
-        '@Toshkent_Ishbor1',
     ],
     'samarqand': [],
     'andijon': [],
@@ -28,46 +25,58 @@ REGION_CHANNELS = {
     'sirdaryo': [],
 }
 
-def get_channel_rss(channel):
+def get_rss_jobs(channel):
     try:
         username = channel.replace('@', '')
         url = f"https://tgstat.ru/channel/@{username}/rss"
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        req = urllib.request.Request(
+            url,
+            headers={'User-Agent': 'Mozilla/5.0'}
+        )
         response = urllib.request.urlopen(req, timeout=5)
-        content = response.read()
-        root = ET.fromstring(content)
+        root = ET.fromstring(response.read())
         jobs = []
         for item in root.findall('.//item')[:5]:
             title = item.findtext('title') or ''
-            link = item.findtext('link') or ''
-            description = item.findtext('description') or ''
-            text = title if title else description[:150]
-            if text:
+            link  = item.findtext('link')  or ''
+            desc  = item.findtext('description') or ''
+            text  = title if title else desc[:150]
+            text  = text.replace('<![CDATA[', '').replace(']]>', '').strip()
+            if text and link:
                 jobs.append({
-                    'text': text[:200],
-                    'link': link,
+                    'text'   : text[:200],
+                    'link'   : link,
                     'channel': f"@{username}"
                 })
         return jobs
     except Exception as e:
-        print(f"Xato {channel}: {e}")
+        print(f"RSS xato {channel}: {e}")
         return []
 
-def application(environ, start_response):
-    region = environ.get('QUERY_STRING', '')
-    region = region.replace('region=', '').strip().lower()
+class handler(BaseHTTPRequestHandler):
 
-    channels = REGION_CHANNELS.get(region, [])
-    all_jobs = []
+    def do_GET(self):
+        query  = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+        region = query.get('region', ['toshkent'])[0].lower()
+        channels = REGION_CHANNELS.get(region, REGION_CHANNELS['toshkent'])
 
-    for channel in channels[:3]:  # Tezlik uchun 3 ta kanal
-        jobs = get_channel_rss(channel)
-        all_jobs.extend(jobs)
+        all_jobs = []
+        for ch in channels[:3]:
+            all_jobs.extend(get_rss_jobs(ch))
+            if len(all_jobs) >= 15:
+                break
 
-    result = json.dumps({'ok': True, 'jobs': all_jobs[:20]}, ensure_ascii=False)
+        self._respond({'ok': True, 'jobs': all_jobs[:20]})
 
-    start_response('200 OK', [
-        ('Content-Type', 'application/json'),
-        ('Access-Control-Allow-Origin', '*'),
-    ])
-    return [result.encode()]
+    def do_OPTIONS(self):
+        self._respond({'ok': True})
+
+    def _respond(self, data):
+        self.send_response(200)
+        self.send_header('Content-Type', 'application/json')
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.end_headers()
+        self.wfile.write(json.dumps(data, ensure_ascii=False).encode())
+
+    def log_message(self, format, *args):
+        pass
