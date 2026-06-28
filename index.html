@@ -18,60 +18,50 @@
   * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
   body { font-family:'Segoe UI',sans-serif; background:var(--light); max-width:480px; margin:0 auto; min-height:100vh; padding-bottom:70px; }
 
-  /* HEADER */
   .header { background:var(--primary); color:#fff; padding:16px 20px; display:flex; align-items:center; gap:10px; position:sticky; top:0; z-index:100; box-shadow:0 2px 10px rgba(0,87,255,0.3); }
   .header-logo { font-size:24px; }
   .header-title { font-size:20px; font-weight:700; }
   .header-sub { font-size:11px; opacity:0.8; }
 
-  /* BOTTOM NAV */
   .bottom-nav { position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:480px; background:#fff; display:flex; border-top:1px solid #e0e0e0; z-index:100; box-shadow:0 -2px 10px rgba(0,0,0,0.08); }
   .nav-item { flex:1; display:flex; flex-direction:column; align-items:center; padding:8px 4px; cursor:pointer; transition:all 0.2s; color:var(--gray); font-size:10px; gap:3px; }
   .nav-item.active { color:var(--primary); }
   .nav-item span { font-size:20px; }
   .nav-item p { font-size:10px; font-weight:500; }
 
-  /* PAGES */
   .page { display:none; padding:16px; animation:fadeIn 0.3s ease; }
   .page.active { display:block; }
   @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
 
-  /* CARDS */
   .card { background:#fff; border-radius:16px; padding:16px; margin-bottom:12px; box-shadow:var(--shadow); }
 
-  /* BUTTONS */
   .btn { width:100%; padding:14px; border:none; border-radius:12px; font-size:15px; font-weight:600; cursor:pointer; transition:all 0.2s; }
   .btn-primary { background:linear-gradient(135deg,var(--primary),#0040cc); color:#fff; }
   .btn-green { background:linear-gradient(135deg,var(--green),#00a846); color:#fff; }
   .btn-outline { background:#fff; color:var(--primary); border:2px solid var(--primary); }
   .btn:active { transform:scale(0.97); }
 
-  /* HERO */
   .hero { background:linear-gradient(135deg,var(--primary),#0040cc); color:#fff; border-radius:20px; padding:24px; margin-bottom:16px; text-align:center; }
   .hero h1 { font-size:22px; font-weight:700; margin-bottom:8px; }
   .hero p { font-size:13px; opacity:0.9; line-height:1.5; }
 
-  /* STEPS */
   .step { display:flex; align-items:flex-start; gap:12px; padding:12px 0; border-bottom:1px solid #f0f0f0; }
   .step:last-child { border-bottom:none; }
   .step-icon { font-size:28px; min-width:40px; text-align:center; }
   .step-title { font-size:14px; font-weight:600; color:#333; }
   .step-desc { font-size:12px; color:var(--gray); margin-top:2px; }
 
-  /* FORM */
   .form-group { margin-bottom:12px; }
   .form-group label { font-size:12px; font-weight:600; color:var(--gray); display:block; margin-bottom:4px; }
   .form-group input, .form-group textarea { width:100%; padding:12px; border:1.5px solid #e0e0e0; border-radius:10px; font-size:14px; outline:none; transition:border 0.2s; background:#fff; }
   .form-group input:focus, .form-group textarea:focus { border-color:var(--primary); }
   .form-group textarea { resize:vertical; min-height:80px; }
 
-  /* PHOTO UPLOAD */
   .photo-upload { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
   .photo-preview { width:70px; height:70px; border-radius:50%; background:#e8f0ff; display:flex; align-items:center; justify-content:center; font-size:28px; overflow:hidden; border:2px solid var(--primary); }
   .photo-preview img { width:100%; height:100%; object-fit:cover; }
   .photo-btn { flex:1; padding:10px; border:2px dashed var(--primary); border-radius:10px; background:transparent; color:var(--primary); font-size:13px; font-weight:600; cursor:pointer; text-align:center; }
 
-  /* RESUME PREVIEW */
   .resume-card { background:#fff; border-radius:16px; padding:20px; box-shadow:var(--shadow); }
   .resume-header { display:flex; align-items:center; gap:16px; margin-bottom:16px; padding-bottom:16px; border-bottom:2px solid var(--light); }
   .resume-photo { width:70px; height:70px; border-radius:50%; background:#e8f0ff; display:flex; align-items:center; justify-content:center; font-size:28px; overflow:hidden; border:3px solid var(--primary); }
@@ -86,7 +76,6 @@
   .skill-tags { display:flex; flex-wrap:wrap; gap:6px; }
   .skill-tag { background:var(--light); padding:4px 10px; border-radius:20px; font-size:11px; color:#333; }
 
-  /* JOBS */
   .filter-tabs { display:flex; gap:8px; overflow-x:auto; padding-bottom:8px; margin-bottom:12px; scrollbar-width:none; }
   .filter-tabs::-webkit-scrollbar { display:none; }
   .filter-tab { padding:7px 16px; border-radius:20px; border:1.5px solid var(--primary); background:#fff; color:var(--primary); font-size:12px; font-weight:600; cursor:pointer; white-space:nowrap; transition:all 0.2s; }
@@ -99,11 +88,9 @@
   .job-meta span { font-size:11px; color:var(--gray); }
   .job-salary { font-size:12px; color:var(--green); font-weight:600; margin-top:4px; }
 
-  /* SKELETON */
   .skeleton { background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%); background-size:200% 100%; animation:shimmer 1.5s infinite; border-radius:8px; height:14px; margin-bottom:8px; }
   @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
-  /* REFERRAL */
   .milestone-list { display:flex; flex-direction:column; gap:10px; }
   .milestone { display:flex; align-items:center; gap:12px; padding:12px; border-radius:12px; background:var(--light); transition:all 0.3s; }
   .milestone.unlocked { background:#e8fff0; border:1.5px solid var(--green); }
@@ -113,11 +100,9 @@
   .milestone-desc { font-size:11px; color:var(--gray); }
   .milestone-badge { font-size:11px; font-weight:700; color:var(--green); background:#e8fff0; padding:3px 8px; border-radius:10px; }
 
-  /* PROGRESS */
   .progress-bar { background:#e0e0e0; border-radius:10px; height:10px; overflow:hidden; margin:8px 0; }
   .progress-fill { background:linear-gradient(90deg,var(--primary),var(--green)); height:100%; border-radius:10px; transition:width 0.5s ease; }
 
-  /* PROFILE */
   .profile-avatar { width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg,var(--primary),#0040cc); display:flex; align-items:center; justify-content:center; font-size:32px; color:#fff; margin:0 auto 12px; }
   .profile-name { text-align:center; font-size:18px; font-weight:700; color:#333; }
   .profile-username { text-align:center; font-size:13px; color:var(--gray); margin-bottom:16px; }
@@ -126,11 +111,9 @@
   .stat-num { font-size:22px; font-weight:700; color:var(--primary); }
   .stat-label { font-size:10px; color:var(--gray); margin-top:2px; }
 
-  /* TOAST */
   .toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%); background:#333; color:#fff; padding:10px 20px; border-radius:20px; font-size:13px; z-index:999; animation:toastIn 0.3s ease; white-space:nowrap; }
   @keyframes toastIn { from{opacity:0;transform:translateX(-50%) translateY(10px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
 
-  /* SECTION TITLE */
   .section-title { font-size:16px; font-weight:700; color:#333; margin-bottom:12px; }
   .divider { height:1px; background:#f0f0f0; margin:12px 0; }
   .empty-state { text-align:center; padding:40px 20px; color:var(--gray); }
@@ -148,47 +131,31 @@
   </div>
 </div>
 
-<!-- PAGES -->
-
 <!-- HOME -->
 <div id="page-home" class="page active">
   <div class="hero">
     <h1>👋 Xush kelibsiz!</h1>
     <p>Rezyume yarating, ish toping va do'stlarni chaqirib mukofot oling!</p>
   </div>
-
   <div class="card">
     <div class="section-title">🚀 Qanday ishlaydi?</div>
     <div class="step">
       <div class="step-icon">📝</div>
-      <div>
-        <div class="step-title">1. Rezyume yarating</div>
-        <div class="step-desc">Shaxsiy ma'lumot, tajriba va ko'nikmalaringizni kiriting</div>
-      </div>
+      <div><div class="step-title">1. Rezyume yarating</div><div class="step-desc">Shaxsiy ma'lumot, tajriba va ko'nikmalaringizni kiriting</div></div>
     </div>
     <div class="step">
       <div class="step-icon">🔍</div>
-      <div>
-        <div class="step-title">2. Ish qidiring</div>
-        <div class="step-desc">HH.uz va Telegram kanallardan real vakansiyalar</div>
-      </div>
+      <div><div class="step-title">2. Ish qidiring</div><div class="step-desc">Telegram kanallardan real vakansiyalar</div></div>
     </div>
     <div class="step">
       <div class="step-icon">📥</div>
-      <div>
-        <div class="step-title">3. PDF yuklab oling</div>
-        <div class="step-desc">Rezyumeni chiroyli PDF formatda saqlang</div>
-      </div>
+      <div><div class="step-title">3. PDF yuklab oling</div><div class="step-desc">Rezyumeni chiroyli PDF formatda saqlang</div></div>
     </div>
     <div class="step">
       <div class="step-icon">👥</div>
-      <div>
-        <div class="step-title">4. Do'st chaqiring</div>
-        <div class="step-desc">Har bir do'st uchun mukofot oling, $100 gacha!</div>
-      </div>
+      <div><div class="step-title">4. Do'st chaqiring</div><div class="step-desc">Har bir do'st uchun mukofot oling, $100 gacha!</div></div>
     </div>
   </div>
-
   <div class="card" style="background:linear-gradient(135deg,#e8f0ff,#f0e8ff);border:none;">
     <div class="section-title">🎁 Referral mukofotlar</div>
     <div style="display:flex;justify-content:space-between;text-align:center;">
@@ -202,100 +169,45 @@
       <button class="btn btn-primary" onclick="goTo('referral')">Do'st chaqirish →</button>
     </div>
   </div>
-
   <button class="btn btn-green" onclick="goTo('resume')" style="margin-bottom:10px;">📝 Rezyume yaratish</button>
   <button class="btn btn-outline" onclick="goTo('jobs')">🔍 Ishlarni ko'rish</button>
 </div>
 
 <!-- RESUME -->
 <div id="page-resume" class="page">
-  <!-- FORM -->
   <div id="resume-form">
     <div class="section-title">📝 Rezyume yaratish</div>
-
     <div class="card">
       <div class="photo-upload">
         <div class="photo-preview" id="photoPreview">👤</div>
-        <label class="photo-btn">
-          📷 Rasm yuklash
-          <input type="file" accept="image/*" onchange="loadPhoto(event)" style="display:none">
-        </label>
+        <label class="photo-btn">📷 Rasm yuklash<input type="file" accept="image/*" onchange="loadPhoto(event)" style="display:none"></label>
       </div>
-
-      <div class="form-group">
-        <label>Ism Familiya *</label>
-        <input type="text" id="inp-name" placeholder="Masalan: Daler Yusupov">
-      </div>
-      <div class="form-group">
-        <label>Maqsad lavozim *</label>
-        <input type="text" id="inp-position" placeholder="Masalan: Frontend Developer">
-      </div>
-      <div class="form-group">
-        <label>Telefon *</label>
-        <input type="tel" id="inp-phone" placeholder="+998 90 123 45 67">
-      </div>
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" id="inp-email" placeholder="email@gmail.com">
-      </div>
-      <div class="form-group">
-        <label>Shahar</label>
-        <input type="text" id="inp-city" placeholder="Toshkent">
-      </div>
+      <div class="form-group"><label>Ism Familiya *</label><input type="text" id="inp-name" placeholder="Masalan: Daler Yusupov"></div>
+      <div class="form-group"><label>Maqsad lavozim *</label><input type="text" id="inp-position" placeholder="Masalan: Frontend Developer"></div>
+      <div class="form-group"><label>Telefon *</label><input type="tel" id="inp-phone" placeholder="+998 90 123 45 67"></div>
+      <div class="form-group"><label>Email</label><input type="email" id="inp-email" placeholder="email@gmail.com"></div>
+      <div class="form-group"><label>Shahar</label><input type="text" id="inp-city" placeholder="Toshkent"></div>
     </div>
-
     <div class="card">
       <div class="section-title">🎓 Ta'lim</div>
-      <div class="form-group">
-        <label>Muassasa nomi</label>
-        <input type="text" id="inp-edu-name" placeholder="Masalan: TATU">
-      </div>
-      <div class="form-group">
-        <label>Mutaxassislik</label>
-        <input type="text" id="inp-edu-spec" placeholder="Masalan: Informatika">
-      </div>
-      <div class="form-group">
-        <label>Yillar</label>
-        <input type="text" id="inp-edu-years" placeholder="2019 - 2023">
-      </div>
+      <div class="form-group"><label>Muassasa nomi</label><input type="text" id="inp-edu-name" placeholder="Masalan: TATU"></div>
+      <div class="form-group"><label>Mutaxassislik</label><input type="text" id="inp-edu-spec" placeholder="Masalan: Informatika"></div>
+      <div class="form-group"><label>Yillar</label><input type="text" id="inp-edu-years" placeholder="2019 - 2023"></div>
     </div>
-
     <div class="card">
       <div class="section-title">💼 Ish tajribasi</div>
-      <div class="form-group">
-        <label>Kompaniya</label>
-        <input type="text" id="inp-exp-company" placeholder="Kompaniya nomi">
-      </div>
-      <div class="form-group">
-        <label>Lavozim</label>
-        <input type="text" id="inp-exp-position" placeholder="Lavozim nomi">
-      </div>
-      <div class="form-group">
-        <label>Yillar</label>
-        <input type="text" id="inp-exp-years" placeholder="2022 - hozir">
-      </div>
-      <div class="form-group">
-        <label>Vazifalar</label>
-        <textarea id="inp-exp-duties" placeholder="Asosiy vazifalaringizni yozing..."></textarea>
-      </div>
+      <div class="form-group"><label>Kompaniya</label><input type="text" id="inp-exp-company" placeholder="Kompaniya nomi"></div>
+      <div class="form-group"><label>Lavozim</label><input type="text" id="inp-exp-position" placeholder="Lavozim nomi"></div>
+      <div class="form-group"><label>Yillar</label><input type="text" id="inp-exp-years" placeholder="2022 - hozir"></div>
+      <div class="form-group"><label>Vazifalar</label><textarea id="inp-exp-duties" placeholder="Asosiy vazifalaringizni yozing..."></textarea></div>
     </div>
-
     <div class="card">
       <div class="section-title">⚡ Ko'nikmalar va tillar</div>
-      <div class="form-group">
-        <label>Ko'nikmalar (vergul bilan)</label>
-        <input type="text" id="inp-skills" placeholder="HTML, CSS, JavaScript, React">
-      </div>
-      <div class="form-group">
-        <label>Tillar</label>
-        <input type="text" id="inp-langs" placeholder="O'zbek (ona tili), Ingliz (B2)">
-      </div>
+      <div class="form-group"><label>Ko'nikmalar (vergul bilan)</label><input type="text" id="inp-skills" placeholder="HTML, CSS, JavaScript, React"></div>
+      <div class="form-group"><label>Tillar</label><input type="text" id="inp-langs" placeholder="O'zbek (ona tili), Ingliz (B2)"></div>
     </div>
-
     <button class="btn btn-primary" onclick="buildResume()" style="margin-bottom:10px;">👁 Ko'rish va saqlash</button>
   </div>
-
-  <!-- PREVIEW -->
   <div id="resume-preview" style="display:none">
     <div class="resume-card" id="resumeOutput"></div>
     <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px;">
@@ -308,12 +220,10 @@
 <!-- JOBS -->
 <div id="page-jobs" class="page">
   <div class="section-title">🔍 Ish qidirish</div>
-
   <div style="display:flex;gap:8px;margin-bottom:12px;">
     <input type="text" id="jobSearch" placeholder="Lavozim kiriting..." style="flex:1;padding:10px 14px;border:1.5px solid #e0e0e0;border-radius:10px;font-size:14px;outline:none;">
     <button onclick="searchJobs()" style="padding:10px 16px;background:var(--primary);color:#fff;border:none;border-radius:10px;font-size:18px;cursor:pointer;">🔍</button>
   </div>
-
   <div class="filter-tabs">
     <div class="filter-tab active" onclick="filterJobs('all',this)">Hammasi</div>
     <div class="filter-tab" onclick="filterJobs('it',this)">💻 IT</div>
@@ -321,84 +231,40 @@
     <div class="filter-tab" onclick="filterJobs('design',this)">🎨 Dizayn</div>
     <div class="filter-tab" onclick="filterJobs('finance',this)">💰 Moliya</div>
   </div>
-
   <div id="jobsList"></div>
 </div>
 
 <!-- REFERRAL -->
 <div id="page-referral" class="page">
   <div class="section-title">👥 Do'st chaqiring - Mukofot oling!</div>
-
   <div class="card">
     <div style="text-align:center;margin-bottom:12px;">
       <div style="font-size:36px;" id="friendsCount">0</div>
       <div style="font-size:13px;color:var(--gray);">chaqirilgan do'stlar</div>
     </div>
-    <div class="progress-bar">
-      <div class="progress-fill" id="progressFill" style="width:0%"></div>
-    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
     <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--gray);">
       <span>0</span><span>10</span><span>50</span><span>100</span><span>500</span>
     </div>
   </div>
-
   <div class="card">
     <div class="section-title">🎁 Mukofotlar</div>
     <div class="milestone-list">
-      <div class="milestone" id="m3">
-        <div class="milestone-icon">🔓</div>
-        <div class="milestone-info">
-          <div class="milestone-title">3 do'st</div>
-          <div class="milestone-desc">Yangi qidiruv huquqi oching</div>
-        </div>
-        <div class="milestone-badge">🔓</div>
-      </div>
-      <div class="milestone" id="m10">
-        <div class="milestone-icon">💵</div>
-        <div class="milestone-info">
-          <div class="milestone-title">10 do'st</div>
-          <div class="milestone-desc">$1 mukofot</div>
-        </div>
-        <div class="milestone-badge">$1</div>
-      </div>
-      <div class="milestone" id="m50">
-        <div class="milestone-icon">💰</div>
-        <div class="milestone-info">
-          <div class="milestone-title">50 do'st</div>
-          <div class="milestone-desc">$5 mukofot</div>
-        </div>
-        <div class="milestone-badge">$5</div>
-      </div>
-      <div class="milestone" id="m100">
-        <div class="milestone-icon">🏆</div>
-        <div class="milestone-info">
-          <div class="milestone-title">100 do'st</div>
-          <div class="milestone-desc">$15 mukofot</div>
-        </div>
-        <div class="milestone-badge">$15</div>
-      </div>
-      <div class="milestone" id="m500">
-        <div class="milestone-icon">🚀</div>
-        <div class="milestone-info">
-          <div class="milestone-title">500 do'st</div>
-          <div class="milestone-desc">$100 mukofot</div>
-        </div>
-        <div class="milestone-badge">$100</div>
-      </div>
+      <div class="milestone" id="m3"><div class="milestone-icon">🔓</div><div class="milestone-info"><div class="milestone-title">3 do'st</div><div class="milestone-desc">Yangi qidiruv huquqi oching</div></div><div class="milestone-badge">🔓</div></div>
+      <div class="milestone" id="m10"><div class="milestone-icon">💵</div><div class="milestone-info"><div class="milestone-title">10 do'st</div><div class="milestone-desc">$1 mukofot</div></div><div class="milestone-badge">$1</div></div>
+      <div class="milestone" id="m50"><div class="milestone-icon">💰</div><div class="milestone-info"><div class="milestone-title">50 do'st</div><div class="milestone-desc">$5 mukofot</div></div><div class="milestone-badge">$5</div></div>
+      <div class="milestone" id="m100"><div class="milestone-icon">🏆</div><div class="milestone-info"><div class="milestone-title">100 do'st</div><div class="milestone-desc">$15 mukofot</div></div><div class="milestone-badge">$15</div></div>
+      <div class="milestone" id="m500"><div class="milestone-icon">🚀</div><div class="milestone-info"><div class="milestone-title">500 do'st</div><div class="milestone-desc">$100 mukofot</div></div><div class="milestone-badge">$100</div></div>
     </div>
   </div>
-
   <div class="card">
     <div class="section-title">🔗 Sizning havolangiz</div>
-    <div id="refLinkBox" style="background:var(--light);padding:10px 14px;border-radius:10px;font-size:12px;color:var(--primary);font-weight:600;word-break:break-all;margin-bottom:10px;">
-      Yuklanmoqda...
-    </div>
+    <div id="refLinkBox" style="background:var(--light);padding:10px 14px;border-radius:10px;font-size:12px;color:var(--primary);font-weight:600;word-break:break-all;margin-bottom:10px;">Yuklanmoqda...</div>
     <div style="display:flex;gap:8px;">
       <button class="btn btn-outline" onclick="copyReferral()" style="flex:1;">📋 Nusxa</button>
       <button class="btn btn-primary" onclick="shareReferral()" style="flex:1;">📤 Ulashish</button>
     </div>
   </div>
-
   <div class="card" style="background:linear-gradient(135deg,#e8fff0,#f0fff4);">
     <div style="display:flex;align-items:center;gap:12px;">
       <div style="font-size:32px;">💵</div>
@@ -416,23 +282,12 @@
     <div class="profile-avatar" id="profileAvatar">👤</div>
     <div class="profile-name" id="profileName">Mehmon</div>
     <div class="profile-username" id="profileUsername">@username</div>
-
     <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-num" id="stat-friends">0</div>
-        <div class="stat-label">Do'stlar</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num" id="stat-searches">0</div>
-        <div class="stat-label">Qidiruvlar</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num" id="stat-resumes">0</div>
-        <div class="stat-label">Rezyumeler</div>
-      </div>
+      <div class="stat-card"><div class="stat-num" id="stat-friends">0</div><div class="stat-label">Do'stlar</div></div>
+      <div class="stat-card"><div class="stat-num" id="stat-searches">0</div><div class="stat-label">Qidiruvlar</div></div>
+      <div class="stat-card"><div class="stat-num" id="stat-resumes">0</div><div class="stat-label">Rezyumeler</div></div>
     </div>
   </div>
-
   <div class="card">
     <div class="section-title">🏆 Mukofot holati</div>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
@@ -444,34 +299,22 @@
       <span style="font-size:13px;font-weight:600;color:var(--primary);" id="profile-next">10 do'st → $1</span>
     </div>
   </div>
-
   <button class="btn btn-primary" onclick="goTo('referral')" style="margin-bottom:8px;">👥 Do'st chaqirish</button>
   <button class="btn btn-outline" onclick="goTo('resume')">📝 Rezyume yaratish</button>
 </div>
 
 <!-- BOTTOM NAV -->
 <div class="bottom-nav">
-  <div class="nav-item active" onclick="goTo('home')" id="nav-home">
-    <span>🏠</span><p>Bosh</p>
-  </div>
-  <div class="nav-item" onclick="goTo('jobs')" id="nav-jobs">
-    <span>🔍</span><p>Ishlar</p>
-  </div>
-  <div class="nav-item" onclick="goTo('resume')" id="nav-resume">
-    <span>📝</span><p>Rezyume</p>
-  </div>
-  <div class="nav-item" onclick="goTo('referral')" id="nav-referral">
-    <span>👥</span><p>Referral</p>
-  </div>
-  <div class="nav-item" onclick="goTo('profile')" id="nav-profile">
-    <span>👤</span><p>Profil</p>
-  </div>
+  <div class="nav-item active" onclick="goTo('home')" id="nav-home"><span>🏠</span><p>Bosh</p></div>
+  <div class="nav-item" onclick="goTo('jobs')" id="nav-jobs"><span>🔍</span><p>Ishlar</p></div>
+  <div class="nav-item" onclick="goTo('resume')" id="nav-resume"><span>📝</span><p>Rezyume</p></div>
+  <div class="nav-item" onclick="goTo('referral')" id="nav-referral"><span>👥</span><p>Referral</p></div>
+  <div class="nav-item" onclick="goTo('profile')" id="nav-profile"><span>👤</span><p>Profil</p></div>
 </div>
 
 <script>
 // ========== CONFIG ==========
 const BOT_USERNAME = 'osonjobs_bot';
-const BOT_API_URL  = 'https://your-app.vercel.app'; // ← Vercel URL ga o'zgartiring
 
 // ========== TELEGRAM INIT ==========
 const tg = window.Telegram?.WebApp;
@@ -496,7 +339,7 @@ function initTelegram() {
   loadResumeFromStorage();
   loadReferralStats();
   loadStats();
-  fetchJobs('all');
+  fetchJobs();
 }
 
 // ========== NAVIGATION ==========
@@ -505,7 +348,6 @@ function goTo(page) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('page-' + page).classList.add('active');
   document.getElementById('nav-' + page).classList.add('active');
-
   if (page === 'referral') loadReferralStats();
   if (page === 'profile') loadStats();
 }
@@ -519,8 +361,7 @@ function loadPhoto(event) {
   const reader = new FileReader();
   reader.onload = function(e) {
     photoBase64 = e.target.result;
-    const preview = document.getElementById('photoPreview');
-    preview.innerHTML = `<img src="${photoBase64}">`;
+    document.getElementById('photoPreview').innerHTML = `<img src="${photoBase64}">`;
     localStorage.setItem('photo_' + userId, photoBase64);
   };
   reader.readAsDataURL(file);
@@ -541,18 +382,18 @@ function buildResume() {
 
   resumeData = {
     name, position, phone,
-    email    : document.getElementById('inp-email').value.trim(),
-    city     : document.getElementById('inp-city').value.trim(),
-    eduName  : document.getElementById('inp-edu-name').value.trim(),
-    eduSpec  : document.getElementById('inp-edu-spec').value.trim(),
-    eduYears : document.getElementById('inp-edu-years').value.trim(),
+    email      : document.getElementById('inp-email').value.trim(),
+    city       : document.getElementById('inp-city').value.trim(),
+    eduName    : document.getElementById('inp-edu-name').value.trim(),
+    eduSpec    : document.getElementById('inp-edu-spec').value.trim(),
+    eduYears   : document.getElementById('inp-edu-years').value.trim(),
     expCompany : document.getElementById('inp-exp-company').value.trim(),
     expPosition: document.getElementById('inp-exp-position').value.trim(),
     expYears   : document.getElementById('inp-exp-years').value.trim(),
     expDuties  : document.getElementById('inp-exp-duties').value.trim(),
-    skills   : document.getElementById('inp-skills').value.trim(),
-    langs    : document.getElementById('inp-langs').value.trim(),
-    photo    : photoBase64
+    skills     : document.getElementById('inp-skills').value.trim(),
+    langs      : document.getElementById('inp-langs').value.trim(),
+    photo      : photoBase64
   };
 
   saveResumeToStorage();
@@ -568,18 +409,13 @@ function buildResume() {
 
 function renderResumePreview() {
   const d = resumeData;
-  const skills = d.skills ? d.skills.split(',').map(s =>
-    `<span class="skill-tag">${s.trim()}</span>`).join('') : '';
-  const langs = d.langs ? d.langs.split(',').map(l =>
-    `<span class="skill-tag">🌐 ${l.trim()}</span>`).join('') : '';
+  const skills = d.skills ? d.skills.split(',').map(s => `<span class="skill-tag">${s.trim()}</span>`).join('') : '';
+  const langs  = d.langs  ? d.langs.split(',').map(l  => `<span class="skill-tag">🌐 ${l.trim()}</span>`).join('') : '';
 
   let html = `
     <div class="resume-header">
       <div class="resume-photo">${d.photo ? `<img src="${d.photo}">` : '👤'}</div>
-      <div>
-        <div class="resume-name">${d.name}</div>
-        <div class="resume-position">${d.position}</div>
-      </div>
+      <div><div class="resume-name">${d.name}</div><div class="resume-position">${d.position}</div></div>
     </div>
     <div class="resume-contact">
       ${d.phone ? `<span class="contact-tag">📞 ${d.phone}</span>` : ''}
@@ -588,24 +424,16 @@ function renderResumePreview() {
     </div>`;
 
   if (d.eduName || d.eduSpec) {
-    html += `<div class="resume-section">
-      <h4>🎓 Ta'lim</h4>
-      <p><strong>${d.eduName}</strong>${d.eduSpec ? ` - ${d.eduSpec}` : ''}${d.eduYears ? ` (${d.eduYears})` : ''}</p>
-    </div>`;
+    html += `<div class="resume-section"><h4>🎓 Ta'lim</h4>
+      <p><strong>${d.eduName}</strong>${d.eduSpec ? ` - ${d.eduSpec}` : ''}${d.eduYears ? ` (${d.eduYears})` : ''}</p></div>`;
   }
   if (d.expCompany || d.expPosition) {
-    html += `<div class="resume-section">
-      <h4>💼 Ish tajribasi</h4>
+    html += `<div class="resume-section"><h4>💼 Ish tajribasi</h4>
       <p><strong>${d.expCompany}</strong>${d.expPosition ? ` - ${d.expPosition}` : ''}${d.expYears ? ` (${d.expYears})` : ''}</p>
-      ${d.expDuties ? `<p style="margin-top:4px;color:#555">${d.expDuties}</p>` : ''}
-    </div>`;
+      ${d.expDuties ? `<p style="margin-top:4px;color:#555">${d.expDuties}</p>` : ''}</div>`;
   }
-  if (d.skills) {
-    html += `<div class="resume-section"><h4>⚡ Ko'nikmalar</h4><div class="skill-tags">${skills}</div></div>`;
-  }
-  if (d.langs) {
-    html += `<div class="resume-section"><h4>🌐 Tillar</h4><div class="skill-tags">${langs}</div></div>`;
-  }
+  if (d.skills) html += `<div class="resume-section"><h4>⚡ Ko'nikmalar</h4><div class="skill-tags">${skills}</div></div>`;
+  if (d.langs)  html += `<div class="resume-section"><h4>🌐 Tillar</h4><div class="skill-tags">${langs}</div></div>`;
 
   document.getElementById('resumeOutput').innerHTML = html;
 }
@@ -615,7 +443,6 @@ function editResume() {
   document.getElementById('resume-preview').style.display = 'none';
 }
 
-// ========== SAVE / LOAD RESUME ==========
 function saveResumeToStorage() {
   localStorage.setItem('resume_' + userId, JSON.stringify(resumeData));
   if (photoBase64) localStorage.setItem('photo_' + userId, photoBase64);
@@ -623,25 +450,21 @@ function saveResumeToStorage() {
 
 function loadResumeFromStorage() {
   const saved = localStorage.getItem('resume_' + userId);
-  if (saved) {
-    resumeData = JSON.parse(saved);
-    photoBase64 = localStorage.getItem('photo_' + userId) || null;
-    // Forma maydonlarini to'ldirish
-    const fields = {
-      'inp-name': 'name', 'inp-position': 'position', 'inp-phone': 'phone',
-      'inp-email': 'email', 'inp-city': 'city',
-      'inp-edu-name': 'eduName', 'inp-edu-spec': 'eduSpec', 'inp-edu-years': 'eduYears',
-      'inp-exp-company': 'expCompany', 'inp-exp-position': 'expPosition',
-      'inp-exp-years': 'expYears', 'inp-exp-duties': 'expDuties',
-      'inp-skills': 'skills', 'inp-langs': 'langs'
-    };
-    for (const [id, key] of Object.entries(fields)) {
-      if (resumeData[key]) document.getElementById(id).value = resumeData[key];
-    }
-    if (photoBase64) {
-      document.getElementById('photoPreview').innerHTML = `<img src="${photoBase64}">`;
-    }
+  if (!saved) return;
+  resumeData = JSON.parse(saved);
+  photoBase64 = localStorage.getItem('photo_' + userId) || null;
+  const fields = {
+    'inp-name': 'name', 'inp-position': 'position', 'inp-phone': 'phone',
+    'inp-email': 'email', 'inp-city': 'city',
+    'inp-edu-name': 'eduName', 'inp-edu-spec': 'eduSpec', 'inp-edu-years': 'eduYears',
+    'inp-exp-company': 'expCompany', 'inp-exp-position': 'expPosition',
+    'inp-exp-years': 'expYears', 'inp-exp-duties': 'expDuties',
+    'inp-skills': 'skills', 'inp-langs': 'langs'
+  };
+  for (const [id, key] of Object.entries(fields)) {
+    if (resumeData[key]) document.getElementById(id).value = resumeData[key];
   }
+  if (photoBase64) document.getElementById('photoPreview').innerHTML = `<img src="${photoBase64}">`;
 }
 
 // ========== PDF ==========
@@ -683,37 +506,27 @@ function downloadPDF() {
     y += lines.length * 5 + 1;
   };
 
-  section('📞 Aloqa ma\'lumotlari');
+  section("Aloqa ma'lumotlari");
   if (resumeData.phone) line(`Telefon: ${resumeData.phone}`);
   if (resumeData.email) line(`Email: ${resumeData.email}`);
   if (resumeData.city)  line(`Shahar: ${resumeData.city}`);
   y += 3;
 
   if (resumeData.eduName) {
-    section('🎓 Ta\'lim');
+    section("Ta'lim");
     line(`${resumeData.eduName} - ${resumeData.eduSpec || ''}`, true);
     if (resumeData.eduYears) line(resumeData.eduYears);
     y += 3;
   }
-
   if (resumeData.expCompany) {
-    section('💼 Ish tajribasi');
+    section('Ish tajribasi');
     line(`${resumeData.expCompany} - ${resumeData.expPosition || ''}`, true);
     if (resumeData.expYears)  line(resumeData.expYears);
     if (resumeData.expDuties) line(resumeData.expDuties);
     y += 3;
   }
-
-  if (resumeData.skills) {
-    section('⚡ Ko\'nikmalar');
-    line(resumeData.skills);
-    y += 3;
-  }
-
-  if (resumeData.langs) {
-    section('🌐 Tillar');
-    line(resumeData.langs);
-  }
+  if (resumeData.skills) { section("Ko'nikmalar"); line(resumeData.skills); y += 3; }
+  if (resumeData.langs)  { section('Tillar'); line(resumeData.langs); }
 
   doc.setFontSize(8); doc.setTextColor(150,150,150);
   doc.text('OsonJobs orqali yaratildi | t.me/' + BOT_USERNAME, 105, 290, {align:'center'});
@@ -737,20 +550,19 @@ async function fetchJobs(category = 'all') {
       <div class="skeleton" style="width:80%;height:10px;margin-top:6px"></div>
     </div>`).join('');
 
-  // 1. Bot API dan olish
   try {
-    const url = `${BOT_API_URL}/api/jobs?category=${category}&limit=20`;
-    const res = await fetch(url, {signal: AbortSignal.timeout(5000)});
+    const userRegion = localStorage.getItem('userRegion') || 'toshkent';
+    const res = await fetch(`/api/jobs?region=${userRegion}`, {signal: AbortSignal.timeout(6000)});
     if (res.ok) {
       const data = await res.json();
-      if (data.length > 0) {
-        allJobs = data.map(j => ({
-          title    : j.text?.split('\n')[0]?.substring(0,60) || 'Vakansiya',
-          company  : j.channel || 'Telegram',
-          salary   : '',
-          location : 'O\'zbekiston',
-          link     : j.link,
-          source   : 'telegram'
+      if (data.jobs && data.jobs.length > 0) {
+        allJobs = data.jobs.map(j => ({
+          title   : j.text?.split('\n')[0]?.substring(0, 60) || 'Vakansiya',
+          company : j.channel || 'Telegram',
+          salary  : '',
+          location: 'O\'zbekiston',
+          link    : j.link,
+          source  : 'telegram'
         }));
         renderJobs(allJobs);
         return;
@@ -758,7 +570,7 @@ async function fetchJobs(category = 'all') {
     }
   } catch(e) {}
 
-  // 2. HH.uz API fallback
+  // HH.uz fallback
   searchHH(category);
 }
 
@@ -767,7 +579,7 @@ async function searchHH(keyword = '') {
     'all': 'ish', 'it': 'developer', 'marketing': 'marketing', 'design': 'dizayn', 'finance': 'buxgalter'
   };
   const q = keywords[keyword] || keyword || 'ish';
-  const count = parseInt(localStorage.getItem('searchCount') || '0') + 1;
+  let count = parseInt(localStorage.getItem('searchCount') || '0') + 1;
   localStorage.setItem('searchCount', count);
 
   try {
@@ -790,16 +602,14 @@ async function searchHH(keyword = '') {
     }
   } catch(e) {}
 
-  document.getElementById('jobsList').innerHTML = `
-    <div id="jobs-list">
-    <div id="loading">⏳ Yuklanmoqda...</div>
-</div>
+  document.getElementById('jobsList').innerHTML =
+    '<div class="empty-state"><span>😔</span><p>Hozircha vakansiyalar yo\'q</p></div>';
 }
 
 function renderJobs(jobs) {
   if (!jobs || jobs.length === 0) {
-    document.getElementById('jobsList').innerHTML = `
-      <div class="empty-state"><span>🔍</span><p>Natija topilmadi</p></div>`;
+    document.getElementById('jobsList').innerHTML =
+      '<div class="empty-state"><span>🔍</span><p>Natija topilmadi</p></div>';
     return;
   }
   document.getElementById('jobsList').innerHTML = jobs.map(j => `
@@ -808,7 +618,7 @@ function renderJobs(jobs) {
       <div class="job-company">${j.source === 'telegram' ? '📢' : '🌐'} ${j.company}</div>
       <div class="job-meta">
         <span>📍 ${j.location}</span>
-        ${j.source === 'hh' ? '<span>• HH.uz</span>' : '<span>• Telegram</span>'}
+        <span>• ${j.source === 'hh' ? 'HH.uz' : 'Telegram'}</span>
       </div>
       ${j.salary ? `<div class="job-salary">💵 ${j.salary}</div>` : '<div class="job-salary">Kelishiladi</div>'}
     </div>`).join('');
@@ -822,7 +632,7 @@ function filterJobs(category, el) {
 
 function searchJobs() {
   const q = document.getElementById('jobSearch').value.trim();
-  if (!q) { showToast('⚠️ Kalit so\'z kiriting!'); return; }
+  if (!q) { showToast("⚠️ Kalit so'z kiriting!"); return; }
   searchHH(q);
 }
 
@@ -834,8 +644,7 @@ async function loadReferralStats() {
   document.getElementById('refLinkBox').textContent = refLink;
 
   try {
-    const res = await fetch(`${BOT_API_URL}/api/referral?user_id=${userId}`,
-      {signal: AbortSignal.timeout(5000)});
+    const res = await fetch(`/api/referral?user_id=${userId}`, {signal: AbortSignal.timeout(5000)});
     if (res.ok) {
       const data = await res.json();
       referralStats = data;
@@ -844,7 +653,6 @@ async function loadReferralStats() {
     }
   } catch(e) {}
 
-  // Fallback: localStorage
   const saved = parseInt(localStorage.getItem('refCount_' + userId) || '0');
   updateReferralUI(saved, calcEarnings(saved));
 }
@@ -860,17 +668,11 @@ function calcEarnings(f) {
 function updateReferralUI(friends, earnings) {
   document.getElementById('friendsCount').textContent = friends;
   document.getElementById('totalEarnings').textContent = `$${earnings}`;
-
   const pct = Math.min((friends / 500) * 100, 100);
   document.getElementById('progressFill').style.width = pct + '%';
-
-  const milestones = [3, 10, 50, 100, 500];
-  milestones.forEach(m => {
+  [3, 10, 50, 100, 500].forEach(m => {
     const el = document.getElementById('m' + m);
-    if (el) {
-      if (friends >= m) el.classList.add('unlocked');
-      else el.classList.remove('unlocked');
-    }
+    if (el) friends >= m ? el.classList.add('unlocked') : el.classList.remove('unlocked');
   });
 }
 
@@ -911,7 +713,10 @@ function loadStats() {
   document.getElementById('stat-resumes').textContent  = resumes;
   document.getElementById('profile-earnings').textContent = `$${earnings}`;
 
-  const nexts = [{f:3,t:'3 do\'st → 🔓'},{f:10,t:'10 do\'st → $1'},{f:50,t:'50 do\'st → $5'},{f:100,t:'100 do\'st → $15'},{f:500,t:'500 do\'st → $100'}];
+  const nexts = [
+    {f:3,t:"3 do'st → 🔓"},{f:10,t:"10 do'st → $1"},
+    {f:50,t:"50 do'st → $5"},{f:100,t:"100 do'st → $15"},{f:500,t:"500 do'st → $100"}
+  ];
   const next = nexts.find(n => n.f > friends);
   document.getElementById('profile-next').textContent = next ? next.t : '🏆 Hammasi bajarildi!';
 }
@@ -929,34 +734,6 @@ function showToast(msg) {
 
 // ========== INIT ==========
 initTelegram();
-<script>
-const tg = window.Telegram.WebApp;
-const region = tg.initDataUnsafe?.user?.language_code || 'toshkent';
-
-async function loadJobs() {
-    try {
-        const res = await fetch(`/api/jobs?region=${region}`);
-        const data = await res.json();
-        const list = document.getElementById('jobs-list');
-
-        if (!data.jobs || data.jobs.length === 0) {
-            list.innerHTML = '<p>Hozircha vakansiyalar yo\'q 😔</p>';
-            return;
-        }
-
-        list.innerHTML = data.jobs.map(job => `
-            <div class="job-card" onclick="window.open('${job.link}', '_blank')">
-                <p>${job.text}</p>
-                <span>${job.channel}</span>
-                <button>Ko'rish →</button>
-            </div>
-        `).join('');
-    } catch(e) {
-        document.getElementById('jobs-list').innerHTML = '<p>Xatolik yuz berdi 😔</p>';
-    }
-}
-
-loadJobs();
 </script>
 </body>
 </html>
